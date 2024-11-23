@@ -1,0 +1,18 @@
+
+version: '3.8'
+
+services:
+  notification-service:
+    container_name: notification-service
+    image: t0ky0le/notification-service:1.0
+    build:
+      context: .
+    ports:
+      - "8094:8094"
+    environment:
+      - SERVER_PORT=8094
+      - KAFKA_BOOTSTRAP_SERVERS=kafka:9092
+      - KAFKA_GROUP_ID=notification-service-group
+      - EUREKA_SERVER_URL=http://discovery-server:8761/eureka/
+    depends_on:
+      - kafka
